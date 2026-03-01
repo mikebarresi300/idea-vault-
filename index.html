@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Idea Vault</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #0f172a; color: #f8fafc; font-family: sans-serif; }
+        .idea-card { background: #1e293b; border: 1px solid #334155; transition: 0.2s; }
+        .idea-card:hover { border-color: #38bdf8; }
+    </style>
+</head>
+<body class="p-6">
+    <div class="max-w-4xl mx-auto">
+        <header class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-sky-400">💡 Idea Vault</h1>
+            <input type="text" id="search" placeholder="Search ideas..." class="bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500">
+        </header>
+
+        <section class="mb-10 bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-xl">
+            <textarea id="ideaInput" placeholder="What's your next big idea?" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-4 mb-4 h-24 focus:outline-none focus:ring-1 focus:ring-sky-500 text-white"></textarea>
+            <div class="flex flex-col sm:flex-row gap-3">
+                <input type="text" id="tagInput" placeholder="Tag (e.g. Business, Tech)" class="bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-sm flex-grow">
+                <button onclick="saveIdea()" class="bg-sky-600 hover:bg-sky-500 px-8 py-2 rounded-lg font-bold transition whitespace-nowrap">Save to Vault</button>
+            </div>
+        </section>
+
+        <div id="vault" class="grid gap-4 md:grid-cols-2"></div>
+    </div>
+
+    <script>
+        // Load existing ideas from LocalStorage
+        let ideas = JSON.parse(localStorage.getItem('myIdeaVaultData')) || [];
+
+        function saveIdea() {
+            const text = document.getElementById('ideaInput').value;
+            const tag = document.getElementById('tagInput').value || 'General';
+            
+            if (!text.trim()) return alert("Please enter an idea first!");
+            
+            const newIdea = { 
+                id: Date.now(), 
+                text: text, 
+                tag: tag, 
+                date: new Date().toLocaleDateString() 
+            };
+            
+            ideas.unshift(newIdea);
+            localStorage.setItem('myIdeaVaultData', JSON.stringify(ideas));
+            
+            document.getElementById('ideaInput').value = '';
+            document.getElementById('tagInput').value = '';
+            render();
+        }
+
+        function shareIdea(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert("Idea copied to clipboard! You can now paste it to your audience.");
+            });
+        }
+
+        function deleteIdea(id) {
+            if(confirm("Delete this idea?")) {
+                ideas = ideas.filter(i => i.id !== id);
+                localStorage.setItem('myIdeaVaultData', JSON.stringify(ideas));
+                render();
+            }
+        }
+
+        function render() {
+            const searchTerm = document.getElementById('search').value.toLowerCase();
+            const container = document.getElementById('vault');
+            container.innerHTML = '';
+
+            const filtered = ideas.filter(i => 
+                i.text.toLowerCase().includes(searchTerm) || 
+                i.tag.toLowerCase().includes(searchTerm)
+            );
+
+            if (filtered.length === 0) {
+                container.innerHTML = '<p class="text-slate-500 italic">No ideas found...</p>';
+                return;
+            }
+
+            filtered.forEach(i => {
+                container.innerHTML += `
+                    <div class="idea-card p-5 rounded-lg flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-3">
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-sky-400 bg-sky-900/40 px-2 py-1 rounded">${i.tag}</span>
+                                <div class="flex gap-3">
+                                    <button onclick="shareIdea('${i.text.replace(/'/g, "\\'")}')" class="text-slate-400 hover:text-white text-xs">🔗 Share</button>
+                                    <button onclick="deleteIdea(${i.id})" class="text-slate-500 hover:text-red-400 text-xs">✕</button>
+                                </div>
+                            </div>
+                            <p class="text-lg leading-relaxed mb-4 text-slate-200">${i.text}</p>
+                        </div>
+                        <small class="text-slate-500 border-t border-slate-700/50 pt-2">${i.date}</small>
+                    </div>
+                `;
+            });
+        }
+
+        // Live Search
+        document.getElementById('search').oninput = render;
+
+        // Initial Render
+        render();
+    </script>
+</body>
+</html 
