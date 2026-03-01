@@ -3,110 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Idea Vault</title>
+    <title>My Public Showcase | Idea Vault</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #0f172a; color: #f8fafc; font-family: sans-serif; }
-        .idea-card { background: #1e293b; border: 1px solid #334155; transition: 0.2s; }
-        .idea-card:hover { border-color: #38bdf8; }
+        body { background-color: #020617; color: #f8fafc; font-family: 'Inter', sans-serif; }
+        .glass { background: rgba(30, 41, 59, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); }
+        .accent-text { color: #38bdf8; text-shadow: 0 0 20px rgba(56, 189, 248, 0.3); }
+        .card-hover:hover { transform: translateY(-5px); border-color: #38bdf8; transition: 0.3s; }
     </style>
 </head>
-<body class="p-6">
-    <div class="max-w-4xl mx-auto">
-        <header class="flex justify-between items-center mb-8">
-            <h1 class="text-3xl font-bold text-sky-400">💡 Idea Vault</h1>
-            <input type="text" id="search" placeholder="Search ideas..." class="bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500">
-        </header>
-
-        <section class="mb-10 bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-xl">
-            <textarea id="ideaInput" placeholder="What's your next big idea?" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-4 mb-4 h-24 focus:outline-none focus:ring-1 focus:ring-sky-500 text-white"></textarea>
-            <div class="flex flex-col sm:flex-row gap-3">
-                <input type="text" id="tagInput" placeholder="Tag (e.g. Business, Tech)" class="bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-sm flex-grow">
-                <button onclick="saveIdea()" class="bg-sky-600 hover:bg-sky-500 px-8 py-2 rounded-lg font-bold transition whitespace-nowrap">Save to Vault</button>
-            </div>
-        </section>
-
-        <div id="vault" class="grid gap-4 md:grid-cols-2"></div>
+<body class="p-6 md:p-20 min-h-screen flex flex-col items-center">
+    
+    <!-- HEADER SECTION -->
+    <div class="max-w-3xl w-full text-center mb-16">
+        <div class="w-24 h-24 bg-gradient-to-br from-sky-400 to-blue-600 rounded-3xl mx-auto mb-8 flex items-center justify-center text-4xl shadow-2xl rotate-3">🚀</div>
+        <h1 class="text-5xl font-black mb-4 tracking-tighter">Welcome to My <span class="accent-text">Vault</span></h1>
+        <p class="text-slate-400 text-xl max-w-xl mx-auto leading-relaxed">
+            I'm a creator focused on building 100% free digital tools. Explore my vision and let's collaborate.
+        </p>
     </div>
 
-    <script>
-        // Load existing ideas from LocalStorage
-        let ideas = JSON.parse(localStorage.getItem('myIdeaVaultData')) || [];
+    <!-- MAIN CONTENT GRID -->
+    <div class="max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+        
+        <!-- ABOUT ME CARD -->
+        <div class="glass p-8 rounded-3xl card-hover">
+            <h3 class="text-sky-400 font-bold uppercase tracking-widest text-xs mb-2">The Mission</h3>
+            <h2 class="text-2xl font-bold mb-4">Who I Am</h2>
+            <p class="text-slate-400 leading-relaxed">
+                I believe in open-access technology. My goal is to build a library of tools that anyone can use to bring their own ideas to life.
+            </p>
+        </div>
 
-        function saveIdea() {
-            const text = document.getElementById('ideaInput').value;
-            const tag = document.getElementById('tagInput').value || 'General';
+        <!-- CURRENT PROJECT CARD -->
+        <div class="glass p-8 rounded-3xl card-hover">
+            <h3 class="text-purple-400 font-bold uppercase tracking-widest text-xs mb-2">Status: Building</h3>
+            <h2 class="text-2xl font-bold mb-4">Active Projects</h2>
+            <ul class="text-slate-400 space-y-2">
+                <li>• 💡 <span class="text-slate-200">Idea Vault v1.0</span> (Live)</li>
+                <li>• 🛠️ <span class="text-slate-200">Community Portal</span> (Planning)</li>
+                <li>• 🌍 <span class="text-slate-200">Open-Source AI Guide</span></li>
+            </ul>
+        </div>
+
+        <!-- CALL TO ACTION / FORM -->
+        <div class="glass p-8 rounded-3xl md:col-span-2 text-center bg-gradient-to-r from-sky-900/20 to-transparent">
+            <h2 class="text-3xl font-bold mb-4">Have a Vision?</h2>
+            <p class="text-slate-400 mb-8 max-w-lg mx-auto">I'm always looking for new collaborators. Send me a message and let's build something together.</p>
             
-            if (!text.trim()) return alert("Please enter an idea first!");
-            
-            const newIdea = { 
-                id: Date.now(), 
-                text: text, 
-                tag: tag, 
-                date: new Date().toLocaleDateString() 
-            };
-            
-            ideas.unshift(newIdea);
-            localStorage.setItem('myIdeaVaultData', JSON.stringify(ideas));
-            
-            document.getElementById('ideaInput').value = '';
-            document.getElementById('tagInput').value = '';
-            render();
-        }
+            <!-- Replace the # with your Google Form link later -->
+            <a href="#" target="_blank" class="inline-block px-10 py-4 bg-sky-600 hover:bg-sky-500 text-white font-black rounded-2xl transition-all shadow-xl shadow-sky-900/40">
+                MESSAGE ME DIRECTLY
+            </a>
+        </div>
+    </div>
 
-        function shareIdea(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                alert("Idea copied to clipboard! You can now paste it to your audience.");
-            });
-        }
+    <!-- SOCIAL LINKS -->
+    <div class="flex gap-6 text-slate-500 font-medium">
+        <a href="#" class="hover:text-sky-400 transition">Twitter/X</a>
+        <a href="#" class="hover:text-sky-400 transition">Instagram</a>
+        <a href="#" class="hover:text-sky-400 transition">LinkedIn</a>
+    </div>
 
-        function deleteIdea(id) {
-            if(confirm("Delete this idea?")) {
-                ideas = ideas.filter(i => i.id !== id);
-                localStorage.setItem('myIdeaVaultData', JSON.stringify(ideas));
-                render();
-            }
-        }
+    <footer class="mt-20 text-slate-700 text-xs">
+        &copy; 2026 • Built with Love & GitHub Pages
+    </footer>
 
-        function render() {
-            const searchTerm = document.getElementById('search').value.toLowerCase();
-            const container = document.getElementById('vault');
-            container.innerHTML = '';
-
-            const filtered = ideas.filter(i => 
-                i.text.toLowerCase().includes(searchTerm) || 
-                i.tag.toLowerCase().includes(searchTerm)
-            );
-
-            if (filtered.length === 0) {
-                container.innerHTML = '<p class="text-slate-500 italic">No ideas found...</p>';
-                return;
-            }
-
-            filtered.forEach(i => {
-                container.innerHTML += `
-                    <div class="idea-card p-5 rounded-lg flex flex-col justify-between">
-                        <div>
-                            <div class="flex justify-between items-start mb-3">
-                                <span class="text-[10px] font-bold uppercase tracking-widest text-sky-400 bg-sky-900/40 px-2 py-1 rounded">${i.tag}</span>
-                                <div class="flex gap-3">
-                                    <button onclick="shareIdea('${i.text.replace(/'/g, "\\'")}')" class="text-slate-400 hover:text-white text-xs">🔗 Share</button>
-                                    <button onclick="deleteIdea(${i.id})" class="text-slate-500 hover:text-red-400 text-xs">✕</button>
-                                </div>
-                            </div>
-                            <p class="text-lg leading-relaxed mb-4 text-slate-200">${i.text}</p>
-                        </div>
-                        <small class="text-slate-500 border-t border-slate-700/50 pt-2">${i.date}</small>
-                    </div>
-                `;
-            });
-        }
-
-        // Live Search
-        document.getElementById('search').oninput = render;
-
-        // Initial Render
-        render();
-    </script>
 </body>
-</html 
+</html>
