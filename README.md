@@ -1,23 +1,16 @@
-# Hhi, I'm [mike p barresi] 👋
+# Mike P Barresi 👋
 
-### ⚡ Technical Arsenal
-![JavaScript](https://img.shields.io) ![Python](https://img.shields.io) ![React](https://img.shields.io) ![Node.js](https://img.shields.io) ![GitHub Actions](https://img.shields.io)
-
----
-
-### 📊 GitHub Power Stats
-
-| ![My GitHub Stats](https://github-readme-stats.vercel.app) | ![Top Langs](https://github-readme-stats.vercel.app) |
-| :--- | :--- |
+### 🛡️ Security & Operations Arsenal
+![Security Operations](https://img.shields.io) ![Risk Management](https://img.shields.io) ![Emergency Response](https://img.shields.io) ![Compliance](https://img.shields.io)
 
 ---
 
-### 🏆 Personal Achievements
-[![GitHub Trophies](https://github-profile-trophy.vercel.app)](https://github.com)
+### 📊 Activity Tracking
+![My GitHub Stats](https://github-readme-stats.vercel.app)
 
 ---
 
-### 🛠️ Current Focus
-- 🔭 **Working on:** [LEARNING HOW TO ELIMINATE HOMLESSNESS]
-- 🌱 **Learning:** []
-- 💬 **Ask me about:** anything i will give you the best helpful answer i know
+### 📋 Professional Focus
+- 🔭 **Current Focus:** Maintaining private documentation and security protocols.
+- ⚡ **Expertise:** Physical security, access control, and incident reporting.
+- 💬 **Ask me about:** Security best practices and operational reliability
