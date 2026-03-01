@@ -1,6 +1,6 @@
 # Mike P Barresi 👋
 
-### 🛡️ Security & Operations Arsenal
+### 🛡️ Security & Operations
 ![Security Operations](https://img.shields.io) ![Risk Management](https://img.shields.io) ![Emergency Response](https://img.shields.io) ![Compliance](https://img.shields.io)
 
 ---
